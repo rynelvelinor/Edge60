@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import { GameType, GAME_CONFIGS } from "../../types";
-import { formatUSDC, parseUSDC } from "../../lib/utils";
-import { DollarSign } from "lucide-react";
+import { formatUSDC, parseUSDC, getGameColor, cn } from "../../lib/utils";
+import { ArrowLeft } from "lucide-react";
 
 interface StakeSelectorProps {
   gameType: GameType;
@@ -27,6 +26,7 @@ export function StakeSelector({
   isLoading,
 }: StakeSelectorProps) {
   const config = GAME_CONFIGS[gameType];
+  const gameColor = getGameColor(gameType);
   const [customAmount, setCustomAmount] = useState("");
   const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
 
@@ -56,93 +56,91 @@ export function StakeSelector({
     setSelectedPreset(null);
   };
 
-  const handleConfirm = () => {
-    if (isValidStake) {
-      onConfirm(stakeAmount);
-    }
-  };
-
   return (
-    <Card variant="gradient" className="max-w-md mx-auto">
+    <Card className="max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <span className="text-2xl">{config.name}</span>
-        </CardTitle>
-        <p className="text-zinc-400 text-sm">Choose your stake amount</p>
+        <button
+          onClick={onBack}
+          className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-3 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm">Back</span>
+        </button>
+        <div className="flex items-center gap-3">
+          <div
+            className="w-4 h-4 rounded"
+            style={{ backgroundColor: gameColor }}
+          />
+          <CardTitle>{config.name}</CardTitle>
+        </div>
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {/* Balance Display */}
-        <div className="bg-zinc-800/50 rounded-xl p-4">
-          <p className="text-sm text-zinc-400 mb-1">Available Balance</p>
-          <p className="text-2xl font-bold text-white">{formatUSDC(balance)}</p>
+        {/* Balance */}
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <div className="text-sm text-slate-500 mb-1">Available Balance</div>
+          <div className="text-2xl font-bold text-slate-900 font-heading">{formatUSDC(balance)}</div>
         </div>
 
-        {/* Preset Amounts */}
+        {/* Presets */}
         <div>
-          <p className="text-sm text-zinc-400 mb-3">Quick Select</p>
+          <div className="text-sm font-medium text-slate-700 mb-3">Quick Select</div>
           <div className="grid grid-cols-3 gap-2">
             {PRESET_AMOUNTS.map((amount) => {
               const amountBigInt = parseUSDC(amount);
               const isAvailable = amountBigInt <= balance;
+              const isSelected = selectedPreset === amount;
 
               return (
-                <motion.button
+                <button
                   key={amount}
-                  whileHover={{ scale: isAvailable ? 1.02 : 1 }}
-                  whileTap={{ scale: isAvailable ? 0.98 : 1 }}
                   onClick={() => isAvailable && handlePresetClick(amount)}
                   disabled={!isAvailable}
-                  className={`py-3 px-4 rounded-xl font-medium transition-all ${selectedPreset === amount
-                      ? "bg-indigo-600 text-white"
+                  className={cn(
+                    "h-12 rounded-xl text-sm font-semibold transition-all duration-200",
+                    isSelected
+                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/25"
                       : isAvailable
-                        ? "bg-zinc-800 text-white hover:bg-zinc-700"
-                        : "bg-zinc-800/50 text-zinc-600 cursor-not-allowed"
-                    }`}
+                        ? "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        : "bg-slate-50 text-slate-300 cursor-not-allowed"
+                  )}
                 >
                   ${amount}
-                </motion.button>
+                </button>
               );
             })}
           </div>
         </div>
 
-        {/* Custom Amount */}
-        <div>
-          <Input
-            label="Custom Amount"
-            type="number"
-            placeholder="Enter amount"
-            value={customAmount}
-            onChange={(e) => handleCustomChange(e.target.value)}
-            icon={<DollarSign className="h-4 w-4" />}
-          />
-          <p className="text-xs text-zinc-500 mt-2">
-            Min: {formatUSDC(config.minStake)} | Max:{" "}
-            {formatUSDC(config.maxStake)}
-          </p>
-        </div>
+        {/* Custom */}
+        <Input
+          label="Custom Amount"
+          type="number"
+          placeholder="0.00"
+          value={customAmount}
+          onChange={(e) => handleCustomChange(e.target.value)}
+          hint={`Min ${formatUSDC(config.minStake)} · Max ${formatUSDC(config.maxStake)}`}
+        />
 
-        {/* Selected Amount Display */}
+        {/* Selected */}
         {stakeAmount > BigInt(0) && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-indigo-600/10 border border-indigo-500/30 rounded-xl p-4"
-          >
-            <p className="text-sm text-indigo-400 mb-1">Your Stake</p>
-            <p className="text-2xl font-bold text-white">
-              {formatUSDC(stakeAmount)}
-            </p>
-            <p className="text-sm text-zinc-400 mt-1">
-              Potential win: {formatUSDC(stakeAmount * BigInt(2) * BigInt(97) / BigInt(100))}
-            </p>
-          </motion.div>
+          <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-100">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-slate-600">Your Stake</span>
+              <span className="text-xl font-bold text-slate-900 font-heading">{formatUSDC(stakeAmount)}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-slate-500">Potential Win</span>
+              <span className="text-sm font-semibold text-green-600">
+                {formatUSDC(stakeAmount * BigInt(2) * BigInt(97) / BigInt(100))}
+              </span>
+            </div>
+          </div>
         )}
 
-        {/* Error Messages */}
+        {/* Error */}
         {stakeAmount > BigInt(0) && !isValidStake && (
-          <p className="text-red-400 text-sm">
+          <p className="text-sm text-red-500">
             {stakeAmount > balance
               ? "Insufficient balance"
               : stakeAmount < config.minStake
@@ -152,20 +150,15 @@ export function StakeSelector({
         )}
 
         {/* Actions */}
-        <div className="flex gap-3">
-          <Button variant="ghost" onClick={onBack} className="flex-1">
-            Back
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleConfirm}
-            disabled={!isValidStake || isLoading}
-            isLoading={isLoading}
-            className="flex-1"
-          >
-            Find Match
-          </Button>
-        </div>
+        <Button
+          onClick={() => isValidStake && onConfirm(stakeAmount)}
+          disabled={!isValidStake || isLoading}
+          isLoading={isLoading}
+          className="w-full"
+          size="lg"
+        >
+          Find Match
+        </Button>
       </CardContent>
     </Card>
   );

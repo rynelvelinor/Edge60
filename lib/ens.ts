@@ -84,9 +84,9 @@ export async function getENSTextRecord(
 }
 
 /**
- * Get full FlashStake profile from ENS
+ * Get full Edge60 profile from ENS
  */
-export async function getFlashStakeProfile(
+export async function getEdge60Profile(
   addressOrName: string
 ): Promise<ENSProfile | null> {
   try {
@@ -110,19 +110,19 @@ export async function getFlashStakeProfile(
     };
 
     if (name) {
-      // Fetch FlashStake-specific records
+      // Fetch Edge60-specific records
       const [avatar, winRate, totalVolume, skillScore] = await Promise.all([
         getENSAvatar(name),
-        getENSTextRecord(name, "flashstake.winRate"),
-        getENSTextRecord(name, "flashstake.totalVolume"),
-        getENSTextRecord(name, "flashstake.skillScore"),
+        getENSTextRecord(name, "edge60.winRate"),
+        getENSTextRecord(name, "edge60.totalVolume"),
+        getENSTextRecord(name, "edge60.skillScore"),
       ]);
 
       profile.avatar = avatar || undefined;
       profile.records = {
-        "flashstake.winRate": winRate || undefined,
-        "flashstake.totalVolume": totalVolume || undefined,
-        "flashstake.skillScore": skillScore || undefined,
+        "edge60.winRate": winRate || undefined,
+        "edge60.totalVolume": totalVolume || undefined,
+        "edge60.skillScore": skillScore || undefined,
       };
     }
 

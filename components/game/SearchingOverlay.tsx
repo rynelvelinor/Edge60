@@ -3,8 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "../ui/Button";
 import { GameType, GAME_CONFIGS } from "../../types";
-import { formatUSDC, getGameEmoji } from "../../lib/utils";
-import { Search, X } from "lucide-react";
+import { formatUSDC, getGameColor } from "../../lib/utils";
 
 interface SearchingOverlayProps {
   gameType: GameType;
@@ -18,82 +17,50 @@ export function SearchingOverlay({
   onCancel,
 }: SearchingOverlayProps) {
   const config = GAME_CONFIGS[gameType];
+  const gameColor = getGameColor(gameType);
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
+      className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
     >
       <motion.div
-        initial={{ scale: 0.8, y: 20 }}
+        initial={{ scale: 0.95, y: 10 }}
         animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.8, y: 20 }}
-        className="bg-zinc-900 rounded-2xl p-8 max-w-sm w-full mx-4 text-center border border-zinc-800"
+        exit={{ scale: 0.95, y: 10 }}
+        className="w-full max-w-sm bg-white rounded-2xl shadow-2xl p-8 text-center"
       >
-        {/* Animated search icon */}
-        <div className="relative w-24 h-24 mx-auto mb-6">
+        {/* Spinner */}
+        <div className="relative w-20 h-20 mx-auto mb-6">
           <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="absolute inset-0 bg-indigo-600/20 rounded-full"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+            className="absolute inset-0 rounded-full border-4 border-slate-200 border-t-indigo-600"
           />
-          <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ repeat: Infinity, duration: 2, delay: 0.3 }}
-            className="absolute inset-2 bg-indigo-600/30 rounded-full"
-          />
-          <div className="absolute inset-4 bg-indigo-600 rounded-full flex items-center justify-center">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-            >
-              <Search className="h-8 w-8 text-white" />
-            </motion.div>
-          </div>
         </div>
 
-        <h2 className="text-2xl font-bold text-white mb-2">
-          Finding Opponent...
-        </h2>
-        <p className="text-zinc-400 mb-6">
-          Looking for a worthy challenger
+        <h2 className="text-h2 text-slate-900 mb-2">Finding Opponent</h2>
+        <p className="text-slate-500 mb-6">
+          Looking for a worthy challenger...
         </p>
 
         {/* Game info */}
-        <div className="bg-zinc-800/50 rounded-xl p-4 mb-6">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="text-3xl">{getGameEmoji(gameType)}</span>
-            <span className="text-lg font-medium text-white">
-              {config.name}
-            </span>
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 mb-6">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: gameColor }}
+            />
+            <span className="font-medium text-slate-900">{config.name}</span>
           </div>
-          <div className="text-2xl font-bold text-indigo-400">
+          <div className="text-2xl font-bold text-indigo-600 font-heading">
             {formatUSDC(stake)}
           </div>
-          <p className="text-sm text-zinc-500">stake</p>
         </div>
 
-        {/* Animated dots */}
-        <div className="flex justify-center gap-2 mb-6">
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              animate={{ y: [0, -8, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 0.8,
-                delay: i * 0.2,
-              }}
-              className="w-2 h-2 bg-indigo-500 rounded-full"
-            />
-          ))}
-        </div>
-
-        {/* Cancel button */}
-        <Button variant="ghost" onClick={onCancel} className="group">
-          <X className="h-4 w-4 mr-2 group-hover:rotate-90 transition-transform" />
+        <Button variant="ghost" onClick={onCancel}>
           Cancel Search
         </Button>
       </motion.div>

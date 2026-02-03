@@ -29,7 +29,7 @@ const arcChain = {
 } as const;
 
 export const config = getDefaultConfig({
-  appName: "FlashStake",
+  appName: "Edge60",
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "demo",
   chains: [
     mainnet,

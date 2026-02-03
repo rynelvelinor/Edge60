@@ -6,39 +6,46 @@ import { cn } from "../../lib/utils";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  icon?: React.ReactNode;
+  hint?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, error, icon, type = "text", ...props }, ref) => {
+  ({ className, label, error, hint, type = "text", id, ...props }, ref) => {
+    const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
+
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-sm font-medium text-zinc-300 mb-2">
+          <label
+            htmlFor={inputId}
+            className="block text-label text-slate-700 mb-2"
+          >
             {label}
           </label>
         )}
-        <div className="relative">
-          {icon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">
-              {icon}
-            </div>
+        <input
+          ref={ref}
+          id={inputId}
+          type={type}
+          className={cn(
+            "w-full h-12 px-4",
+            "bg-white text-slate-900",
+            "border border-slate-300 rounded-xl",
+            "placeholder:text-slate-400",
+            "transition-all duration-200",
+            "focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20",
+            "disabled:bg-slate-50 disabled:text-slate-400 disabled:cursor-not-allowed",
+            error && "border-red-400 focus:border-red-500 focus:ring-red-500/20",
+            className
           )}
-          <input
-            ref={ref}
-            type={type}
-            className={cn(
-              "w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white placeholder-zinc-500",
-              "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent",
-              "transition-all duration-200",
-              icon && "pl-10",
-              error && "border-red-500 focus:ring-red-500",
-              className
-            )}
-            {...props}
-          />
-        </div>
-        {error && <p className="mt-1.5 text-sm text-red-400">{error}</p>}
+          {...props}
+        />
+        {hint && !error && (
+          <p className="mt-2 text-sm text-slate-500">{hint}</p>
+        )}
+        {error && (
+          <p className="mt-2 text-sm text-red-500">{error}</p>
+        )}
       </div>
     );
   }

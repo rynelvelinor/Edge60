@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /**
  * @title GameTreasury
- * @notice Central treasury contract for FlashStake gaming platform
+ * @notice Central treasury contract for Edge60 gaming platform
  * @dev Manages USDC deposits, match outcomes, rake collection, and withdrawals
  */
 contract GameTreasury is Ownable, ReentrancyGuard {

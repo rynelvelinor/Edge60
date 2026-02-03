@@ -171,12 +171,10 @@ app.get("/api/leaderboard", async (req, res) => {
     const leaderboard = await treasuryService.getLeaderboard();
     res.json({ success: true, data: leaderboard });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        error: { message: "Failed to fetch leaderboard" },
-      });
+    res.status(500).json({
+      success: false,
+      error: { message: "Failed to fetch leaderboard" },
+    });
   }
 });
 
@@ -188,12 +186,10 @@ app.get("/api/player/:address", async (req, res) => {
     );
     res.json({ success: true, data: stats });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        error: { message: "Failed to fetch player stats" },
-      });
+    res.status(500).json({
+      success: false,
+      error: { message: "Failed to fetch player stats" },
+    });
   }
 });
 
@@ -205,12 +201,10 @@ app.get("/api/matches/:address", async (req, res) => {
     );
     res.json({ success: true, data: matches });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        error: { message: "Failed to fetch match history" },
-      });
+    res.status(500).json({
+      success: false,
+      error: { message: "Failed to fetch match history" },
+    });
   }
 });
 
@@ -232,7 +226,7 @@ const PORT = process.env.PORT || 3001;
 
 httpServer.listen(PORT, () => {
   console.log(`
-  ⚡ FlashStake Server Running
+  ⚡ Edge60 Server Running
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Port: ${PORT}
   Environment: ${process.env.NODE_ENV || "development"}

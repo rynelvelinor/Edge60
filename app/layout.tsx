@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import { Web3Provider } from "../components/providers/Web3Provider";
 import { Header } from "../components/layout/Header";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "FlashStake - Real-Time USDC Skill Gaming",
+  title: "Edge60 - Real-Time USDC Skill Gaming",
   description:
     "Compete in skill-based games with instant USDC payouts. Powered by Yellow Network state channels and Arc cross-chain liquidity.",
   keywords: [
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     "crypto gaming",
   ],
   openGraph: {
-    title: "FlashStake - Real-Time USDC Skill Gaming",
+    title: "Edge60 - Real-Time USDC Skill Gaming",
     description:
       "Compete in skill-based games with instant USDC payouts. Powered by Yellow Network state channels.",
     type: "website",
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FlashStake",
+    title: "Edge60",
     description: "Real-Time USDC Skill Gaming via State Channels",
   },
 };
@@ -48,9 +50,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black min-h-screen`}
+        className={`${spaceGrotesk.variable} ${inter.variable} antialiased bg-white min-h-screen`}
       >
         <Web3Provider>
           <Header />

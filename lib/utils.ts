@@ -87,20 +87,20 @@ export function delay(ms: number): Promise<void> {
 }
 
 /**
- * Generate random color for avatars
+ * Generate avatar color based on address
  */
 export function generateAvatarColor(address: string): string {
   const colors = [
-    "#FF6B6B",
-    "#4ECDC4",
-    "#45B7D1",
-    "#96CEB4",
-    "#FFEAA7",
-    "#DDA0DD",
-    "#98D8C8",
-    "#F7DC6F",
-    "#BB8FCE",
-    "#85C1E9",
+    "#6366f1", // Indigo
+    "#8b5cf6", // Violet
+    "#a855f7", // Purple
+    "#06b6d4", // Cyan
+    "#14b8a6", // Teal
+    "#22c55e", // Green
+    "#f59e0b", // Amber
+    "#f97316", // Orange
+    "#ef4444", // Red
+    "#ec4899", // Pink
   ];
 
   const index = parseInt(address.slice(2, 10), 16) % colors.length;
@@ -108,16 +108,16 @@ export function generateAvatarColor(address: string): string {
 }
 
 /**
- * Get game type emoji
+ * Get game type display name
  */
-export function getGameEmoji(gameType: string): string {
-  const emojis: Record<string, string> = {
-    REACTION_RACE: "⚡",
-    MEMORY_MATCH: "🧠",
-    QUICK_MATH: "🔢",
-    PATTERN_TAP: "🎯",
+export function getGameName(gameType: string): string {
+  const names: Record<string, string> = {
+    REACTION_RACE: "Reaction",
+    MEMORY_MATCH: "Memory",
+    QUICK_MATH: "Math",
+    PATTERN_TAP: "Pattern",
   };
-  return emojis[gameType] || "🎮";
+  return names[gameType] || "Game";
 }
 
 /**
@@ -125,12 +125,12 @@ export function getGameEmoji(gameType: string): string {
  */
 export function getGameColor(gameType: string): string {
   const colors: Record<string, string> = {
-    REACTION_RACE: "from-yellow-500 to-orange-500",
-    MEMORY_MATCH: "from-purple-500 to-pink-500",
-    QUICK_MATH: "from-blue-500 to-cyan-500",
-    PATTERN_TAP: "from-green-500 to-emerald-500",
+    REACTION_RACE: "#f59e0b",
+    MEMORY_MATCH: "#a855f7",
+    QUICK_MATH: "#06b6d4",
+    PATTERN_TAP: "#22c55e",
   };
-  return colors[gameType] || "from-gray-500 to-gray-600";
+  return colors[gameType] || "#6366f1";
 }
 
 /**
@@ -139,6 +139,14 @@ export function getGameColor(gameType: string): string {
 export function truncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength - 3) + "...";
+}
+
+/**
+ * Shorten address
+ */
+export function shortenAddress(address: string): string {
+  if (!address) return "";
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
 /**

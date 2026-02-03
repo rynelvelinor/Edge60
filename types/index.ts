@@ -239,9 +239,9 @@ export interface ENSProfile {
   name?: string;
   avatar?: string;
   records: {
-    "flashstake.winRate"?: string;
-    "flashstake.totalVolume"?: string;
-    "flashstake.skillScore"?: string;
+    "edge60.winRate"?: string;
+    "edge60.totalVolume"?: string;
+    "edge60.skillScore"?: string;
   };
 }
 

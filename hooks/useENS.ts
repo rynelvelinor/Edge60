@@ -2,11 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
-import {
-  resolveENSAddress,
-  getENSAvatar,
-  getFlashStakeProfile,
-} from "../lib/ens";
+import { resolveENSAddress, getENSAvatar, getEdge60Profile } from "../lib/ens";
 import { Address, ENSProfile } from "../types";
 
 /**
@@ -55,9 +51,9 @@ export function useENSAvatar(addressOrName?: string) {
 }
 
 /**
- * Hook to get full FlashStake profile from ENS
+ * Hook to get full Edge60 profile from ENS
  */
-export function useFlashStakeProfile(addressOrName?: string) {
+export function useEdge60Profile(addressOrName?: string) {
   const [profile, setProfile] = useState<ENSProfile | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -71,7 +67,7 @@ export function useFlashStakeProfile(addressOrName?: string) {
     setIsLoading(true);
     setError(null);
 
-    getFlashStakeProfile(addressOrName)
+    getEdge60Profile(addressOrName)
       .then((p) => {
         setProfile(p);
         if (!p) setError("Profile not found");

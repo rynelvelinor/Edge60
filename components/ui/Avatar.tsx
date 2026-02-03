@@ -17,8 +17,8 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
     const sizes = {
       sm: "h-8 w-8 text-xs",
       md: "h-10 w-10 text-sm",
-      lg: "h-14 w-14 text-base",
-      xl: "h-20 w-20 text-xl",
+      lg: "h-12 w-12 text-base",
+      xl: "h-16 w-16 text-lg",
     };
 
     const initials = name
@@ -27,14 +27,14 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         ? address.slice(2, 4).toUpperCase()
         : "??";
 
-    const bgColor = address ? generateAvatarColor(address) : "#6366f1";
+    const bgColor = address ? generateAvatarColor(address) : "#4f46e5";
 
     if (src && !imageError) {
       return (
         <div
           ref={ref}
           className={cn(
-            "relative rounded-full overflow-hidden flex-shrink-0",
+            "relative rounded-full overflow-hidden flex-shrink-0 bg-slate-100",
             sizes[size],
             className
           )}
@@ -54,7 +54,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
       <div
         ref={ref}
         className={cn(
-          "relative rounded-full flex items-center justify-center font-bold text-white flex-shrink-0",
+          "relative rounded-full flex items-center justify-center font-semibold text-white flex-shrink-0",
           sizes[size],
           className
         )}

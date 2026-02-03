@@ -40,7 +40,7 @@ export function useGame() {
     if (!address) return;
 
     try {
-      const message = `FlashStake Authentication\nAddress: ${address}\nTimestamp: ${Date.now()}`;
+      const message = `Edge60 Authentication\nAddress: ${address}\nTimestamp: ${Date.now()}`;
       const signature = await signMessageAsync({ message });
 
       socketService.authenticate(address as Address, signature, message);

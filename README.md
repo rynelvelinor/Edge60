@@ -1,12 +1,12 @@
-# FlashStake ⚡
+# Edge60 ⚡
 
 > Real-Time USDC Skill Gaming via State Channels
 
-FlashStake is a real-time, skill-based USDC gaming platform where two players stake USDC, compete in short deterministic games (under 60 seconds), and receive instant payouts.
+Edge60 is a real-time, skill-based USDC gaming platform where two players stake USDC, compete in short deterministic games (under 60 seconds), and receive instant payouts.
 
 ## 🏗️ Architecture
 
-FlashStake separates the system into three distinct layers:
+Edge60 separates the system into three distinct layers:
 
 | Layer               | Responsibility                       | Technology                      |
 | ------------------- | ------------------------------------ | ------------------------------- |
@@ -48,7 +48,7 @@ FlashStake separates the system into three distinct layers:
 ## 📦 Project Structure
 
 ```
-flashstake/
+edge60/
 ├── app/                    # Next.js app directory
 │   ├── page.tsx           # Landing page
 │   ├── play/              # Game lobby
@@ -84,8 +84,8 @@ flashstake/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/flashstake.git
-cd flashstake
+git clone https://github.com/your-username/edge60.git
+cd edge60
 ```
 
 2. Install dependencies:
@@ -202,4 +202,4 @@ This project was built for ETHGlobal hackathon, demonstrating how Web3 infrastru
 
 ---
 
-Built with ❤️ by the FlashStake team
+Built with ❤️ by the Edge60 team
