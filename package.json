@@ -1,17 +1,33 @@
 {
-  "name": "p2e",
+  "name": "flashstake",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "next dev --port 3000",
+    "dev:backend": "tsx watch server/index.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "compile": "hardhat compile",
+    "test:contracts": "hardhat test"
   },
   "dependencies": {
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "@tanstack/react-query": "^5.60.0",
+    "wagmi": "^2.14.0",
+    "viem": "^2.21.0",
+    "@rainbow-me/rainbowkit": "^2.2.0",
+    "ethers": "^6.13.0",
+    "socket.io-client": "^4.8.0",
+    "zustand": "^5.0.0",
+    "framer-motion": "^11.11.0",
+    "lucide-react": "^0.460.0",
+    "canvas-confetti": "^1.9.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -21,6 +37,18 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "concurrently": "^9.1.0",
+    "tsx": "^4.19.0",
+    "express": "^4.21.0",
+    "@types/express": "^5.0.0",
+    "socket.io": "^4.8.0",
+    "cors": "^2.8.5",
+    "@types/cors": "^2.8.17",
+    "uuid": "^10.0.0",
+    "@types/uuid": "^10.0.0",
+    "hardhat": "^2.22.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.4.0"
   }
 }
