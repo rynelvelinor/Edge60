@@ -4,15 +4,14 @@ import Link from "next/link";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Button } from "../components/ui/Button";
-import { cn } from "../lib/utils";
 
 const GAME_CARDS = [
   {
     id: "reaction",
     name: "Reaction Race",
     description: "Test your reflexes. Fastest tap wins the round.",
-    color: "#f97316",
-    bgColor: "#fff7ed",
+    color: "#c17a4a",
+    bgColor: "#f5ebe5",
     duration: "30s",
     rounds: 5,
   },
@@ -20,8 +19,8 @@ const GAME_CARDS = [
     id: "memory",
     name: "Memory Match",
     description: "Find matching pairs before your opponent.",
-    color: "#a855f7",
-    bgColor: "#faf5ff",
+    color: "#8a6b9a",
+    bgColor: "#f0ebf2",
     duration: "60s",
     rounds: 1,
   },
@@ -29,8 +28,8 @@ const GAME_CARDS = [
     id: "math",
     name: "Quick Math",
     description: "Solve arithmetic problems at lightning speed.",
-    color: "#06b6d4",
-    bgColor: "#ecfeff",
+    color: "#4a8a9a",
+    bgColor: "#e8f0f2",
     duration: "45s",
     rounds: 10,
   },
@@ -38,8 +37,8 @@ const GAME_CARDS = [
     id: "pattern",
     name: "Pattern Tap",
     description: "Remember and repeat the sequence.",
-    color: "#22c55e",
-    bgColor: "#f0fdf4",
+    color: "#5a8a6b",
+    bgColor: "#e8f0eb",
     duration: "45s",
     rounds: 5,
   },
@@ -49,30 +48,50 @@ export default function Home() {
   const { isConnected } = useAccount();
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="relative pt-24 pb-20 px-4 overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-100 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-orange-100 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2" />
+    <div className="min-h-screen bg-[#f7f3eb]">
+      {/* Hero - Felt Table Surface */}
+      <section className="relative pt-24 pb-20 px-4 overflow-hidden bg-[#1e3a2f]">
+        {/* Subtle felt texture */}
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Vignette effect */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%)",
+          }}
+        />
 
         <div className="relative max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-600 text-sm font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-            Powered by State Channels
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#111510] border-2 border-[#2a3525] text-sm font-medium mb-6 shadow-[inset_2px_2px_4px_rgba(0,0,0,0.3)]">
+            <span className="w-2 h-2 rounded-full bg-[#5a8a6b] shadow-[0_0_6px_rgba(90,138,107,0.6)] animate-pulse" />
+            <span
+              className="font-mono text-[#7aff9a]"
+              style={{ textShadow: "0 0 8px rgba(122, 255, 154, 0.4)" }}
+            >
+              Powered by State Channels
+            </span>
           </div>
 
-          <h1 className="text-display text-slate-900 mb-6">
+          <h1 className="text-[#f7f3eb] mb-6 text-4xl md:text-5xl lg:text-6xl font-bold font-heading leading-tight">
             Skill-Based Gaming
             <br />
-            <span className="text-indigo-600">for USDC</span>
+            <span className="text-[#c9a959]">for USDC</span>
           </h1>
 
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10">
-            Compete head-to-head in deterministic games. No RNG, no luck—pure skill decides the winner. Instant payouts via state channels.
+          <p className="text-xl text-[#b8c4b0] max-w-2xl mx-auto mb-10 leading-relaxed">
+            Compete head-to-head in deterministic games. No RNG, no luck—pure
+            skill decides the winner. Instant payouts via state channels.
           </p>
 
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 flex-wrap">
             {isConnected ? (
               <Link href="/play">
                 <Button size="lg">Start Playing</Button>
@@ -95,10 +114,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="py-8 px-4 bg-slate-900">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* Stats Bar - Scoreboard style */}
+      <section className="py-8 px-4 bg-[#4a3023] border-y-4 border-[#2a1a13] shadow-[inset_0_2px_8px_rgba(0,0,0,0.3)]">
+        {/* Wood grain texture */}
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="relative max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { value: "$2.4M+", label: "Total Volume" },
               { value: "12,000+", label: "Active Players" },
@@ -106,8 +133,16 @@ export default function Home() {
               { value: "89,000+", label: "Matches Played" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-white font-heading">{stat.value}</div>
-                <div className="text-sm text-slate-400 mt-1">{stat.label}</div>
+                {/* LCD-style display for value */}
+                <div className="inline-block px-4 py-2 rounded-md bg-[#111510] border-2 border-[#2a3525] shadow-[inset_2px_2px_4px_rgba(0,0,0,0.4)] mb-2">
+                  <span
+                    className="text-xl md:text-2xl font-bold font-mono text-[#7aff9a]"
+                    style={{ textShadow: "0 0 8px rgba(122, 255, 154, 0.5)" }}
+                  >
+                    {stat.value}
+                  </span>
+                </div>
+                <div className="text-sm text-[#c9bda8]">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -115,13 +150,18 @@ export default function Home() {
       </section>
 
       {/* Games Section */}
-      <section className="py-24 px-4">
+      <section className="py-20 px-4 bg-[#f7f3eb]">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-caption text-indigo-600 mb-3 block">GAME MODES</span>
-            <h2 className="text-h1 text-slate-900 mb-4">Four Ways to Compete</h2>
-            <p className="text-lg text-slate-600 max-w-xl mx-auto">
-              Each game tests different skills. Master them all or specialize in one.
+          <div className="text-center mb-14">
+            <span className="text-caption text-[#c9a959] mb-3 block tracking-widest">
+              GAME MODES
+            </span>
+            <h2 className="text-h1 text-[#2d2a26] mb-4">
+              Four Ways to Compete
+            </h2>
+            <p className="text-lg text-[#6b5e4f] max-w-xl mx-auto">
+              Each game tests different skills. Master them all or specialize in
+              one.
             </p>
           </div>
 
@@ -129,36 +169,48 @@ export default function Home() {
             {GAME_CARDS.map((game) => (
               <div
                 key={game.id}
-                className="group relative rounded-2xl p-6 border border-slate-200 bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300"
+                className="group relative rounded-xl p-6 bg-[#fffef8] border-2 border-[#c9bda8] shadow-[3px_3px_12px_rgba(0,0,0,0.1)] hover:shadow-[4px_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-200 cursor-pointer"
               >
-                {/* Color accent */}
+                {/* Top color accent - like a card edge */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
+                  className="absolute top-0 left-4 right-4 h-1 rounded-b-full"
                   style={{ backgroundColor: game.color }}
                 />
 
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-4 pt-2">
+                  {/* Icon */}
                   <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: game.bgColor }}
+                    className="w-14 h-14 rounded-lg flex items-center justify-center border-2 shadow-[2px_2px_6px_rgba(0,0,0,0.1)]"
+                    style={{
+                      backgroundColor: game.bgColor,
+                      borderColor: game.color + "40",
+                    }}
                   >
                     <div
-                      className="w-6 h-6 rounded-lg"
+                      className="w-6 h-6 rounded"
                       style={{ backgroundColor: game.color }}
                     />
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-slate-500">
+
+                  {/* Duration/Rounds */}
+                  <div className="flex items-center gap-3 text-sm text-[#6b5e4f]">
                     <span>{game.duration}</span>
-                    <span className="w-1 h-1 rounded-full bg-slate-300" />
-                    <span>{game.rounds} {game.rounds === 1 ? 'round' : 'rounds'}</span>
+                    <span className="w-1 h-1 rounded-full bg-[#c9bda8]" />
+                    <span>
+                      {game.rounds} {game.rounds === 1 ? "round" : "rounds"}
+                    </span>
                   </div>
                 </div>
 
-                <h3 className="text-h3 text-slate-900 mb-2">{game.name}</h3>
-                <p className="text-slate-600 mb-5">{game.description}</p>
+                <h3 className="text-h3 text-[#2d2a26] mb-2">{game.name}</h3>
+                <p className="text-[#6b5e4f] mb-5">{game.description}</p>
 
                 <Link href="/play">
-                  <Button variant="secondary" size="sm" className="group-hover:bg-slate-200">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="group-hover:bg-[#f0ebe0]"
+                  >
                     Play Now
                   </Button>
                 </Link>
@@ -169,11 +221,21 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section className="py-24 px-4 bg-slate-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-caption text-indigo-600 mb-3 block">HOW IT WORKS</span>
-            <h2 className="text-h1 text-slate-900 mb-4">Start in 3 Steps</h2>
+      <section className="py-20 px-4 bg-[#1e3a2f] relative">
+        {/* Felt texture */}
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="relative max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-caption text-[#c9a959] mb-3 block tracking-widest">
+              HOW IT WORKS
+            </span>
+            <h2 className="text-h1 text-[#f7f3eb] mb-4">Start in 3 Steps</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -181,26 +243,34 @@ export default function Home() {
               {
                 step: "01",
                 title: "Connect",
-                desc: "Link your wallet and deposit USDC to your gaming balance."
+                desc: "Link your wallet and deposit USDC to your gaming balance.",
               },
               {
                 step: "02",
                 title: "Match",
-                desc: "Choose your game mode, set your stake, and find an opponent."
+                desc: "Choose your game mode, set your stake, and find an opponent.",
               },
               {
                 step: "03",
                 title: "Compete",
-                desc: "Play head-to-head. Winner takes the pot minus a small fee."
+                desc: "Play head-to-head. Winner takes the pot minus a small fee.",
               },
             ].map((item, i) => (
               <div key={item.step} className="relative">
+                {/* Connector line */}
                 {i < 2 && (
-                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-slate-200" />
+                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-[#3a5a4a]" />
                 )}
-                <div className="text-5xl font-bold text-slate-200 font-heading mb-4">{item.step}</div>
-                <h3 className="text-h3 text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-600">{item.desc}</p>
+
+                {/* Chip/Token style number */}
+                <div className="w-16 h-16 rounded-full bg-[#c9a959] border-4 border-[#8a7025] flex items-center justify-center mb-4 shadow-[0_4px_0_#8a7025,_3px_3px_8px_rgba(0,0,0,0.3)]">
+                  <span className="text-xl font-bold text-[#2d2a26] font-heading">
+                    {item.step}
+                  </span>
+                </div>
+
+                <h3 className="text-h3 text-[#f7f3eb] mb-2">{item.title}</h3>
+                <p className="text-[#b8c4b0]">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -208,67 +278,106 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className="py-24 px-4">
+      <section className="py-20 px-4 bg-[#f7f3eb]">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="text-caption text-indigo-600 mb-3 block">TECHNOLOGY</span>
-              <h2 className="text-h1 text-slate-900 mb-6">
+              <span className="text-caption text-[#c9a959] mb-3 block tracking-widest">
+                TECHNOLOGY
+              </span>
+              <h2 className="text-h1 text-[#2d2a26] mb-6">
                 Web3 Infrastructure,
-                <br />Web2 Experience
+                <br />
+                Web2 Experience
               </h2>
               <div className="space-y-6">
                 {[
                   {
                     title: "State Channels",
-                    desc: "Instant transactions without blockchain delays. Only deposits and withdrawals touch the chain."
+                    desc: "Instant transactions without blockchain delays. Only deposits and withdrawals touch the chain.",
                   },
                   {
                     title: "Cross-Chain",
-                    desc: "Deposit USDC from any supported chain. Play anywhere, withdraw anywhere."
+                    desc: "Deposit USDC from any supported chain. Play anywhere, withdraw anywhere.",
                   },
                   {
                     title: "ENS Identity",
-                    desc: "Your gaming reputation tied to your ENS. Verifiable stats, portable identity."
+                    desc: "Your gaming reputation tied to your ENS. Verifiable stats, portable identity.",
                   },
                 ].map((feature) => (
                   <div key={feature.title} className="flex gap-4">
-                    <div className="w-2 h-2 rounded-full bg-indigo-600 mt-2.5 flex-shrink-0" />
+                    <div className="w-3 h-3 rounded-full bg-[#c9a959] mt-2 flex-shrink-0 shadow-[1px_1px_2px_rgba(0,0,0,0.2)]" />
                     <div>
-                      <h4 className="font-semibold text-slate-900 mb-1">{feature.title}</h4>
-                      <p className="text-slate-600">{feature.desc}</p>
+                      <h4 className="font-semibold text-[#2d2a26] mb-1">
+                        {feature.title}
+                      </h4>
+                      <p className="text-[#6b5e4f]">{feature.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Stats Card - Like a game panel */}
             <div className="relative">
-              <div className="aspect-square rounded-3xl bg-slate-900 p-8 flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="text-slate-400 text-sm mb-1">Your Balance</div>
-                    <div className="text-3xl font-bold text-white font-heading">$1,234.56</div>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
-                  </div>
-                </div>
+              <div className="rounded-xl bg-[#4a3023] p-8 border-4 border-[#2a1a13] shadow-[4px_4px_16px_rgba(0,0,0,0.3)]">
+                {/* Wood texture */}
+                <div
+                  className="absolute inset-0 rounded-xl opacity-[0.06] pointer-events-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                  }}
+                />
 
-                <div className="space-y-3">
-                  {[
-                    { label: "Wins", value: "156", color: "bg-green-500" },
-                    { label: "Win Rate", value: "63.6%", color: "bg-indigo-500" },
-                    { label: "Earnings", value: "+$1,250", color: "bg-orange-500" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="flex items-center justify-between p-3 rounded-xl bg-white/5">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${stat.color}`} />
-                        <span className="text-slate-400">{stat.label}</span>
+                <div className="relative">
+                  <div className="flex justify-between items-start mb-8">
+                    <div>
+                      <div className="text-[#c9bda8] text-sm mb-1">
+                        Your Balance
                       </div>
-                      <span className="font-semibold text-white">{stat.value}</span>
+                      {/* LCD Display */}
+                      <div className="inline-block px-4 py-2 rounded-md bg-[#111510] border-2 border-[#2a3525] shadow-[inset_2px_2px_4px_rgba(0,0,0,0.4)]">
+                        <span
+                          className="text-2xl font-bold font-mono text-[#7aff9a]"
+                          style={{
+                            textShadow: "0 0 8px rgba(122, 255, 154, 0.5)",
+                          }}
+                        >
+                          $1,234.56
+                        </span>
+                      </div>
                     </div>
-                  ))}
+                    <div className="w-10 h-10 rounded-full bg-[rgba(90,138,107,0.2)] flex items-center justify-center border border-[#5a8a6b]">
+                      <div className="w-3 h-3 rounded-full bg-[#5a8a6b] shadow-[0_0_8px_rgba(90,138,107,0.6)]" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {[
+                      { label: "Wins", value: "156", color: "#5a8a6b" },
+                      { label: "Win Rate", value: "63.6%", color: "#c9a959" },
+                      { label: "Earnings", value: "+$1,250", color: "#c17a4a" },
+                    ].map((stat) => (
+                      <div
+                        key={stat.label}
+                        className="flex items-center justify-between p-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)]"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-2 h-2 rounded-full"
+                            style={{
+                              backgroundColor: stat.color,
+                              boxShadow: `0 0 6px ${stat.color}60`,
+                            }}
+                          />
+                          <span className="text-[#c9bda8]">{stat.label}</span>
+                        </div>
+                        <span className="font-semibold text-[#f7f3eb]">
+                          {stat.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -277,22 +386,31 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-4 bg-indigo-600">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-h1 text-white mb-4">Ready to compete?</h2>
-          <p className="text-lg text-indigo-100 mb-10">
-            Connect your wallet and start playing in seconds. No sign-up required.
+      <section className="py-20 px-4 bg-[#c9a959] relative">
+        {/* Subtle texture */}
+        <div
+          className="absolute inset-0 opacity-[0.08] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="relative max-w-2xl mx-auto text-center">
+          <h2 className="text-h1 text-[#2d2a26] mb-4">Ready to compete?</h2>
+          <p className="text-lg text-[#4a3a2a] mb-10">
+            Connect your wallet and start playing in seconds. No sign-up
+            required.
           </p>
           {isConnected ? (
             <Link href="/play">
-              <Button variant="secondary" size="lg" className="bg-white text-indigo-600 hover:bg-indigo-50">
+              <Button variant="dark" size="lg">
                 Find a Match
               </Button>
             </Link>
           ) : (
             <ConnectButton.Custom>
               {({ openConnectModal }) => (
-                <Button variant="secondary" size="lg" onClick={openConnectModal} className="bg-white text-indigo-600 hover:bg-indigo-50">
+                <Button variant="dark" size="lg" onClick={openConnectModal}>
                   Connect Wallet
                 </Button>
               )}
@@ -302,21 +420,31 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-              <span className="text-white font-bold text-xs">FS</span>
+      <footer className="py-12 px-4 bg-[#4a3023] border-t-4 border-[#2a1a13]">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#c9a959] border-2 border-[#8a7025] flex items-center justify-center shadow-[0_2px_0_#8a7025]">
+              <span className="text-[#2d2a26] font-bold text-xs">E60</span>
             </div>
-            <span className="font-semibold text-slate-900">Edge60</span>
+            <span className="font-semibold text-[#f7f3eb] font-heading">
+              Edge60
+            </span>
           </div>
-          <div className="flex gap-8 text-sm text-slate-600">
-            <a href="#" className="hover:text-slate-900 transition-colors">Documentation</a>
-            <a href="#" className="hover:text-slate-900 transition-colors">GitHub</a>
-            <a href="#" className="hover:text-slate-900 transition-colors">Twitter</a>
-            <a href="#" className="hover:text-slate-900 transition-colors">Discord</a>
+          <div className="flex gap-8 text-sm text-[#c9bda8]">
+            <a href="#" className="hover:text-[#f7f3eb] transition-colors">
+              Documentation
+            </a>
+            <a href="#" className="hover:text-[#f7f3eb] transition-colors">
+              GitHub
+            </a>
+            <a href="#" className="hover:text-[#f7f3eb] transition-colors">
+              Twitter
+            </a>
+            <a href="#" className="hover:text-[#f7f3eb] transition-colors">
+              Discord
+            </a>
           </div>
-          <p className="text-sm text-slate-500">Built for ETHGlobal</p>
+          <p className="text-sm text-[#9a8a7a]">Built for ETHGlobal</p>
         </div>
       </footer>
     </div>

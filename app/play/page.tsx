@@ -18,7 +18,12 @@ import { formatUSDC } from "../../lib/utils";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-type FlowState = "select-game" | "select-stake" | "searching" | "match-found" | "playing";
+type FlowState =
+  | "select-game"
+  | "select-stake"
+  | "searching"
+  | "match-found"
+  | "playing";
 
 export default function PlayPage() {
   const router = useRouter();
@@ -60,13 +65,21 @@ export default function PlayPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-        <div className="max-w-sm w-full text-center">
-          <div className="w-16 h-16 rounded-2xl bg-indigo-100 flex items-center justify-center mx-auto mb-6">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600" />
+      <div className="min-h-screen bg-[#1e3a2f] flex items-center justify-center px-4 relative">
+        {/* Felt texture */}
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="relative max-w-sm w-full text-center">
+          <div className="w-20 h-20 rounded-xl bg-[#c9a959] border-4 border-[#8a7025] flex items-center justify-center mx-auto mb-6 shadow-[0_4px_0_#8a7025,_3px_3px_10px_rgba(0,0,0,0.3)]">
+            <span className="text-2xl font-bold text-[#2d2a26]">E60</span>
           </div>
-          <h1 className="text-h2 text-slate-900 mb-3">Connect to Play</h1>
-          <p className="text-slate-600 mb-8">
+          <h1 className="text-h2 text-[#f7f3eb] mb-3">Connect to Play</h1>
+          <p className="text-[#b8c4b0] mb-8">
             Connect your wallet to start competing.
           </p>
           <ConnectButton.Custom>
@@ -83,10 +96,18 @@ export default function PlayPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-10 h-10 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Connecting to game server...</p>
+      <div className="min-h-screen bg-[#1e3a2f] flex items-center justify-center relative">
+        {/* Felt texture */}
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="relative text-center">
+          <div className="w-12 h-12 border-4 border-[#c9a959] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-[#b8c4b0]">Connecting to game server...</p>
         </div>
       </div>
     );
@@ -122,28 +143,42 @@ export default function PlayPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-20 pb-12 px-4">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-[#1e3a2f] pt-20 pb-12 px-4 relative">
+      {/* Felt texture */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      <div className="relative max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors"
+              className="w-10 h-10 rounded-lg bg-[#fffef8] border-2 border-[#c9bda8] flex items-center justify-center text-[#4a3023] hover:bg-[#f7f3eb] transition-colors shadow-[2px_2px_6px_rgba(0,0,0,0.15)]"
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div>
-              <h1 className="text-h2 text-slate-900">Select Game</h1>
-              <p className="text-slate-600 text-sm mt-0.5">
+              <h1 className="text-h2 text-[#f7f3eb]">Select Game</h1>
+              <p className="text-[#b8c4b0] text-sm mt-0.5">
                 Choose a game mode and set your stake
               </p>
             </div>
           </div>
 
-          <div className="px-4 py-2 rounded-xl bg-white border border-slate-200">
-            <div className="text-xs text-slate-500 mb-0.5">Balance</div>
-            <div className="text-lg font-semibold text-slate-900">{formatUSDC(balance)}</div>
+          {/* Balance LCD */}
+          <div className="px-4 py-3 rounded-lg bg-[#111510] border-2 border-[#2a3525] shadow-[inset_2px_2px_4px_rgba(0,0,0,0.4)]">
+            <div className="text-xs text-[#5a8a6b] mb-0.5">Balance</div>
+            <div
+              className="text-lg font-bold font-mono text-[#7aff9a]"
+              style={{ textShadow: "0 0 8px rgba(122, 255, 154, 0.5)" }}
+            >
+              {formatUSDC(balance)}
+            </div>
           </div>
         </div>
 
@@ -163,14 +198,16 @@ export default function PlayPage() {
               />
 
               {balance === BigInt(0) && (
-                <div className="mt-6 p-5 rounded-2xl bg-orange-50 border border-orange-200">
+                <div className="mt-6 p-5 rounded-xl bg-[#fffef8] border-2 border-[#c17a4a] shadow-[3px_3px_10px_rgba(0,0,0,0.15)]">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center flex-shrink-0">
-                      <div className="w-4 h-4 rounded bg-orange-500" />
+                    <div className="w-12 h-12 rounded-lg bg-[#f5ebe5] border-2 border-[#c17a4a40] flex items-center justify-center flex-shrink-0">
+                      <div className="w-5 h-5 rounded bg-[#c17a4a]" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-slate-900 mb-1">No Balance</h3>
-                      <p className="text-slate-600 text-sm mb-3">
+                      <h3 className="font-semibold text-[#2d2a26] mb-1">
+                        No Balance
+                      </h3>
+                      <p className="text-[#6b5e4f] text-sm mb-3">
                         Deposit USDC to start playing skill-based games.
                       </p>
                       <Button size="sm">Deposit USDC</Button>

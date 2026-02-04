@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import { Avatar } from "../../components/ui/Avatar";
 import { LeaderboardEntry, Address } from "../../types";
-import { formatUSDC, formatPercentage, shortenAddress, cn } from "../../lib/utils";
+import {
+  formatUSDC,
+  formatPercentage,
+  shortenAddress,
+  cn,
+} from "../../lib/utils";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -92,54 +97,81 @@ export default function LeaderboardPage() {
     }
   });
 
-  const getRankStyle = (rank: number) => {
-    if (rank === 1) return "bg-amber-100 text-amber-700 border-amber-200";
-    if (rank === 2) return "bg-slate-100 text-slate-600 border-slate-200";
-    if (rank === 3) return "bg-orange-100 text-orange-700 border-orange-200";
-    return "bg-slate-50 text-slate-500 border-slate-100";
+  // Medal colors for top 3
+  const getMedalStyle = (rank: number) => {
+    if (rank === 1)
+      return "bg-[#c9a959] border-[#8a7025] text-[#2d2a26] shadow-[0_2px_0_#8a7025]"; // Gold
+    if (rank === 2)
+      return "bg-[#a8a8a8] border-[#707070] text-[#2d2a26] shadow-[0_2px_0_#707070]"; // Silver
+    if (rank === 3)
+      return "bg-[#b87333] border-[#8a5525] text-[#2d2a26] shadow-[0_2px_0_#8a5525]"; // Bronze
+    return "bg-[#f7f3eb] border-[#c9bda8] text-[#6b5e4f]"; // Default
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-20 pb-12 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-[#4a3023] pt-20 pb-12 px-4 relative">
+      {/* Wood grain texture */}
+      <div
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      <div className="relative max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <Link
             href="/"
-            className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors"
+            className="w-10 h-10 rounded-lg bg-[#fffef8] border-2 border-[#c9bda8] flex items-center justify-center text-[#4a3023] hover:bg-[#f7f3eb] transition-colors shadow-[2px_2px_6px_rgba(0,0,0,0.2)]"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="text-h2 text-slate-900">Leaderboard</h1>
-            <p className="text-slate-600 text-sm mt-0.5">
+            <h1 className="text-h2 text-[#f7f3eb]">Leaderboard</h1>
+            <p className="text-[#c9bda8] text-sm mt-0.5">
               Top players ranked by skill score
             </p>
           </div>
         </div>
 
-        {/* Stats Cards */}
+        {/* Stats Cards - Trophy case style */}
         <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="p-5 rounded-2xl bg-white border border-slate-200">
-            <div className="text-2xl font-bold text-slate-900 font-heading">{leaderboard.length}</div>
-            <div className="text-sm text-slate-500 mt-1">Total Players</div>
-          </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200">
-            <div className="text-2xl font-bold text-slate-900 font-heading">
-              {formatUSDC(leaderboard.reduce((sum, p) => sum + p.totalVolume, BigInt(0)))}
+          {[
+            { label: "Total Players", value: leaderboard.length.toString() },
+            {
+              label: "Total Volume",
+              value: formatUSDC(
+                leaderboard.reduce((sum, p) => sum + p.totalVolume, BigInt(0)),
+              ),
+            },
+            {
+              label: "Total Matches",
+              value: leaderboard
+                .reduce((sum, p) => sum + p.totalWins, 0)
+                .toLocaleString(),
+            },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="p-5 rounded-xl bg-[#fffef8] border-2 border-[#c9bda8] shadow-[3px_3px_10px_rgba(0,0,0,0.15)]"
+            >
+              {/* LCD display for value */}
+              <div className="inline-block px-3 py-1.5 rounded bg-[#111510] border border-[#2a3525] mb-2">
+                <span
+                  className="text-lg font-bold font-mono text-[#7aff9a]"
+                  style={{ textShadow: "0 0 6px rgba(122, 255, 154, 0.5)" }}
+                >
+                  {stat.value}
+                </span>
+              </div>
+              <div className="text-sm text-[#6b5e4f]">{stat.label}</div>
             </div>
-            <div className="text-sm text-slate-500 mt-1">Total Volume</div>
-          </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200">
-            <div className="text-2xl font-bold text-slate-900 font-heading">
-              {leaderboard.reduce((sum, p) => sum + p.totalWins, 0).toLocaleString()}
-            </div>
-            <div className="text-sm text-slate-500 mt-1">Total Matches</div>
-          </div>
+          ))}
         </div>
 
-        {/* Sort Tabs */}
-        <div className="flex gap-2 mb-6 p-1.5 rounded-xl bg-white border border-slate-200 inline-flex">
+        {/* Sort Tabs - Brass plate style */}
+        <div className="flex gap-1 mb-6 p-1.5 rounded-lg bg-[#3a2a1f] border-2 border-[#2a1a13] inline-flex shadow-[inset_2px_2px_4px_rgba(0,0,0,0.3)]">
           {[
             { key: "rank", label: "Rank" },
             { key: "skillScore", label: "Score" },
@@ -150,10 +182,10 @@ export default function LeaderboardPage() {
               key={option.key}
               onClick={() => setSortBy(option.key as SortKey)}
               className={cn(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                "px-4 py-2 rounded-md text-sm font-medium transition-all duration-150",
                 sortBy === option.key
-                  ? "bg-indigo-600 text-white"
-                  : "text-slate-600 hover:bg-slate-100"
+                  ? "bg-[#c9a959] text-[#2d2a26] shadow-[0_2px_0_#8a7025,_2px_2px_4px_rgba(0,0,0,0.2)]"
+                  : "text-[#c9bda8] hover:text-[#f7f3eb] hover:bg-[rgba(255,255,255,0.05)]",
               )}
             >
               {option.label}
@@ -161,33 +193,39 @@ export default function LeaderboardPage() {
           ))}
         </div>
 
-        {/* Table */}
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+        {/* Table - Scorebook style */}
+        <div className="bg-[#fffef8] rounded-xl border-2 border-[#c9bda8] overflow-hidden shadow-[3px_3px_12px_rgba(0,0,0,0.2)]">
           {isLoading ? (
-            <div className="p-8 text-center text-slate-500">Loading...</div>
+            <div className="p-8 text-center text-[#6b5e4f]">Loading...</div>
           ) : (
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-[#e8e0d0]">
               {sortedLeaderboard.map((entry) => (
                 <div
                   key={entry.address}
-                  className="flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors"
+                  className="flex items-center gap-4 p-4 hover:bg-[#f7f3eb] transition-colors"
                 >
-                  {/* Rank */}
-                  <div className={cn(
-                    "w-10 h-10 rounded-xl flex items-center justify-center text-sm font-semibold border",
-                    getRankStyle(entry.rank)
-                  )}>
+                  {/* Rank Medal */}
+                  <div
+                    className={cn(
+                      "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2",
+                      getMedalStyle(entry.rank),
+                    )}
+                  >
                     {entry.rank}
                   </div>
 
                   {/* Player */}
                   <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <Avatar address={entry.address} name={entry.ensName} size="md" />
+                    <Avatar
+                      address={entry.address}
+                      name={entry.ensName}
+                      size="md"
+                    />
                     <div className="min-w-0">
-                      <div className="font-medium text-slate-900 truncate">
+                      <div className="font-medium text-[#2d2a26] truncate">
                         {entry.ensName || shortenAddress(entry.address)}
                       </div>
-                      <div className="text-sm text-slate-500">
+                      <div className="text-sm text-[#6b5e4f]">
                         {entry.totalWins} wins
                       </div>
                     </div>
@@ -196,23 +234,33 @@ export default function LeaderboardPage() {
                   {/* Stats */}
                   <div className="hidden sm:flex items-center gap-8">
                     <div className="text-right w-20">
-                      <div className="font-semibold text-slate-900">{entry.skillScore}</div>
-                      <div className="text-xs text-slate-500">Score</div>
+                      <div className="font-semibold text-[#2d2a26]">
+                        {entry.skillScore}
+                      </div>
+                      <div className="text-xs text-[#9a8a7a]">Score</div>
                     </div>
                     <div className="text-right w-16">
-                      <div className="font-semibold text-green-600">{formatPercentage(entry.winRate)}</div>
-                      <div className="text-xs text-slate-500">Win %</div>
+                      <div className="font-semibold text-[#5a8a6b]">
+                        {formatPercentage(entry.winRate)}
+                      </div>
+                      <div className="text-xs text-[#9a8a7a]">Win %</div>
                     </div>
                     <div className="text-right w-28">
-                      <div className="font-semibold text-slate-900">{formatUSDC(entry.totalVolume)}</div>
-                      <div className="text-xs text-slate-500">Volume</div>
+                      <div className="font-semibold text-[#2d2a26]">
+                        {formatUSDC(entry.totalVolume)}
+                      </div>
+                      <div className="text-xs text-[#9a8a7a]">Volume</div>
                     </div>
                   </div>
 
                   {/* Mobile stats */}
                   <div className="sm:hidden text-right">
-                    <div className="font-semibold text-slate-900">{entry.skillScore}</div>
-                    <div className="text-sm text-green-600">{formatPercentage(entry.winRate)}</div>
+                    <div className="font-semibold text-[#2d2a26]">
+                      {entry.skillScore}
+                    </div>
+                    <div className="text-sm text-[#5a8a6b]">
+                      {formatPercentage(entry.winRate)}
+                    </div>
                   </div>
                 </div>
               ))}

@@ -1,55 +1,83 @@
 @import "tailwindcss";
 
+/* ============================================
+   EDGE60 SKEUOMORPHIC DESIGN SYSTEM
+   Warm Casino Palette
+   ============================================ */
+
 :root {
-  /* Light Theme - Vibrant & Clean */
-  --background: #ffffff;
-  --background-secondary: #f8fafc;
-  --background-tertiary: #f1f5f9;
+  /* ========== SURFACES ========== */
+  --surface-primary: #1e3a2f; /* Deep Forest (felt table) */
+  --surface-secondary: #f7f3eb; /* Warm Cream */
+  --surface-card: #fffef8; /* Ivory (card background) */
+  --surface-elevated: #faf8f3; /* Slightly lifted surface */
 
-  --foreground: #0f172a;
-  --foreground-secondary: #334155;
-  --foreground-muted: #64748b;
-  --foreground-subtle: #94a3b8;
+  /* ========== ACCENTS ========== */
+  --accent-primary: #c9a959; /* Antique Brass */
+  --accent-primary-hover: #a88734; /* Aged Brass */
+  --accent-primary-active: #8a7025; /* Pressed Brass */
 
-  /* Brand - Vibrant Indigo */
-  --brand: #4f46e5;
-  --brand-hover: #4338ca;
-  --brand-light: #eef2ff;
-  --brand-muted: rgba(79, 70, 229, 0.1);
+  /* ========== TEXT ========== */
+  --text-primary: #603909; /* Warm Charcoal */
+  --text-secondary: #6b5e4f; /* Dusty Brown */
+  --text-muted: #9a8a7a; /* Taupe */
+  --text-on-dark: #f7f3eb; /* Cream on dark backgrounds */
+  --text-on-accent: #2d2a26; /* Text on brass buttons */
 
-  /* Accent Colors - Vibrant */
-  --accent-orange: #f97316;
-  --accent-orange-light: #fff7ed;
-  --accent-purple: #a855f7;
-  --accent-purple-light: #faf5ff;
-  --accent-cyan: #06b6d4;
-  --accent-cyan-light: #ecfeff;
-  --accent-green: #22c55e;
-  --accent-green-light: #f0fdf4;
-  --accent-red: #ef4444;
-  --accent-red-light: #fef2f2;
+  /* ========== BORDERS & FRAMES ========== */
+  --border-frame: #4a3023; /* Dark Mahogany */
+  --border-light: #d4c9b8; /* Light wood tone */
+  --border-card: #c9bda8; /* Card edge */
 
-  /* Surface & Border */
-  --surface: #ffffff;
-  --surface-raised: #f8fafc;
-  --border: #e2e8f0;
-  --border-light: #f1f5f9;
+  /* ========== SEMANTIC COLORS ========== */
+  --color-success: #5a8a6b; /* Sage Green */
+  --color-success-light: #e8f0eb;
+  --color-error: #a34a4a; /* Muted Brick */
+  --color-error-light: #f5e8e8;
+  --color-warning: #b8860b; /* Dark Goldenrod */
+  --color-warning-light: #f5f0e0;
 
-  /* Dark sections */
-  --dark-bg: #0f172a;
-  --dark-surface: #1e293b;
-  --dark-border: #334155;
-  --dark-text: #f8fafc;
-  --dark-text-muted: #94a3b8;
+  /* ========== LCD DISPLAY ========== */
+  --lcd-background: #111510; /* Near Black */
+  --lcd-text: #7aff9a; /* Soft Mint */
+  --lcd-text-dim: #3a6b4a; /* Dimmed segments */
+  --lcd-border: #2a3525; /* LCD frame */
+
+  /* ========== SHADOWS (Consistent bottom-right) ========== */
+  --shadow-sm: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  --shadow-md: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 4px 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 6px 6px 24px rgba(0, 0, 0, 0.3);
+
+  /* Button 3D shadow (creates depth) */
+  --shadow-button: 0 4px 0 var(--accent-primary-hover),
+    3px 3px 8px rgba(0, 0, 0, 0.3);
+  --shadow-button-pressed: 0 1px 0 var(--accent-primary-hover),
+    1px 1px 4px rgba(0, 0, 0, 0.2);
+
+  /* Inset shadow (for inputs) */
+  --shadow-inset: inset 2px 2px 4px rgba(0, 0, 0, 0.15);
+
+  /* Card shadow */
+  --shadow-card: 3px 3px 12px rgba(0, 0, 0, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.5) inset;
+
+  /* ========== SPACING (unchanged) ========== */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
+/* ========== TAILWIND THEME INTEGRATION ========== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--surface-secondary);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
 }
 
+/* ========== BASE STYLES ========== */
 * {
   box-sizing: border-box;
 }
@@ -61,14 +89,14 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--surface-secondary);
+  color: var(--text-primary);
   font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   min-height: 100vh;
   line-height: 1.6;
 }
 
-/* Typography */
+/* ========== TYPOGRAPHY ========== */
 h1,
 h2,
 h3,
@@ -77,30 +105,30 @@ h5,
 h6,
 .font-heading {
   font-family: var(--font-heading), system-ui, sans-serif;
+  color: var(--text-primary);
 }
 
 .text-display {
   font-family: var(--font-heading), system-ui, sans-serif;
-  font-size: 4rem;
-  line-height: 1.05;
+  font-size: 3.5rem;
+  line-height: 1.1;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 
 .text-h1 {
   font-family: var(--font-heading), system-ui, sans-serif;
-  font-size: 2.5rem;
-  line-height: 1.15;
+  font-size: 2.25rem;
+  line-height: 1.2;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .text-h2 {
   font-family: var(--font-heading), system-ui, sans-serif;
   font-size: 1.75rem;
-  line-height: 1.2;
+  line-height: 1.25;
   font-weight: 600;
-  letter-spacing: -0.01em;
 }
 
 .text-h3 {
@@ -113,55 +141,116 @@ h6,
 .text-body {
   font-size: 1rem;
   line-height: 1.6;
+  color: var(--text-secondary);
 }
 
 .text-body-sm {
   font-size: 0.875rem;
   line-height: 1.5;
+  color: var(--text-secondary);
 }
 
 .text-caption {
   font-size: 0.75rem;
   line-height: 1.4;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
 
 .text-label {
   font-size: 0.875rem;
   line-height: 1.4;
   font-weight: 500;
+  color: var(--text-secondary);
 }
 
-/* Scrollbar - Light theme */
+/* ========== SKEUOMORPHIC SURFACES ========== */
+
+/* Felt table surface - for main backgrounds */
+.surface-felt {
+  background-color: var(--surface-primary);
+  position: relative;
+}
+
+.surface-felt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Card/paper surface */
+.surface-card {
+  background-color: var(--surface-card);
+  border: 2px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Wood frame surface */
+.surface-wood {
+  background-color: var(--border-frame);
+  position: relative;
+}
+
+.surface-wood::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* LCD Display */
+.surface-lcd {
+  background-color: var(--lcd-background);
+  border: 3px solid var(--lcd-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-inset), 0 0 20px rgba(122, 255, 154, 0.1) inset;
+  padding: 0.75rem 1rem;
+}
+
+.surface-lcd .lcd-text {
+  font-family: "SF Mono", "Monaco", "Inconsolata", monospace;
+  color: var(--lcd-text);
+  text-shadow: 0 0 8px rgba(122, 255, 154, 0.5);
+}
+
+/* ========== CUSTOM SCROLLBAR ========== */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-secondary);
+  background: var(--border-light);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
+  background: var(--border-frame);
+  border-radius: 5px;
+  border: 2px solid var(--border-light);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--foreground-subtle);
+  background: var(--text-secondary);
 }
 
-/* Selection */
+/* ========== SELECTION ========== */
 ::selection {
-  background: rgba(79, 70, 229, 0.2);
-  color: var(--foreground);
+  background: rgba(201, 169, 89, 0.3);
+  color: var(--text-primary);
 }
 
-/* Focus */
+/* ========== FOCUS STATES ========== */
 :focus-visible {
-  outline: 2px solid var(--brand);
+  outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
 }
 
@@ -169,7 +258,7 @@ h6,
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Number input arrows */
+/* ========== FORM ELEMENTS ========== */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -180,28 +269,50 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* Utility Classes */
+/* ========== UTILITY CLASSES ========== */
+
+/* Dark section (for stats bars, etc.) */
 .section-dark {
-  background: var(--dark-bg);
-  color: var(--dark-text);
+  background: var(--border-frame);
+  color: var(--text-on-dark);
 }
 
+/* Card shadows */
 .card-shadow {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05),
-    0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 .card-shadow-md {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
-    0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-md);
 }
 
 .card-shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08),
-    0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Animation */
+/* Brass accent text */
+.text-brass {
+  color: var(--accent-primary);
+}
+
+/* Success/Error states */
+.text-success {
+  color: var(--color-success);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.bg-success-light {
+  background-color: var(--color-success-light);
+}
+
+.bg-error-light {
+  background-color: var(--color-error-light);
+}
+
+/* ========== ANIMATIONS ========== */
 @keyframes pulse-subtle {
   0%,
   100% {
@@ -216,29 +327,49 @@ input[type="number"] {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
 
-/* Game color utilities */
+@keyframes lcd-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+.animate-lcd {
+  animation: lcd-flicker 0.1s ease-in-out infinite;
+}
+
+/* ========== GAME COLOR UTILITIES ========== */
 .game-reaction {
-  background-color: var(--accent-orange);
+  background-color: #c17a4a;
 }
+
 .game-memory {
-  background-color: var(--accent-purple);
+  background-color: #8a6b9a;
 }
+
 .game-math {
-  background-color: var(--accent-cyan);
+  background-color: #4a8a9a;
 }
+
 .game-pattern {
-  background-color: var(--accent-green);
+  background-color: #5a8a6b;
 }
 
 .game-reaction-bg {
-  background-color: var(--accent-orange-light);
+  background-color: #f5ebe5;
 }
+
 .game-memory-bg {
-  background-color: var(--accent-purple-light);
+  background-color: #f0ebf2;
 }
+
 .game-math-bg {
-  background-color: var(--accent-cyan-light);
+  background-color: #e8f0f2;
 }
+
 .game-pattern-bg {
-  background-color: var(--accent-green-light);
+  background-color: #e8f0eb;
 }
